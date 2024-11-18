@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, hsl(208, 100%, 97%), #e6f7ff);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background 0.5s;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+        }
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .input {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #007BFF;
+            border-radius: 4px;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .button {
+            padding: 10px 15px;
+            font-size: 1em;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .loading {
+            font-size: 1.2em;
+            color: #007BFF;
+            margin-top: 15px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .history {
+            margin-top: 20px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Weather App</h1>
+        <div class="input-group">
+            <input type="text" id="city-input" placeholder="Enter city name" class="input">
+            <button id="get-weather" class="button">Get Weather</button>
+            <button id="get-location" class="button">Use My Location</button>
+        </div>
+        <div>
+            <button id="toggle-unit" class="button">Toggle °C/°F</button>
+        </div>
+        <div id="loading" class="loading hidden">Loading...</div>
+        <div id="weather-result" class="result"></div>
+        <div id="search-history" class="history"></div>
+    </div>
+    <script>
+        // JavaScript Code
+        const apiKey = 'a3da2a49ca0fe6bf026367c33b7471c3'; // Replace with your actual API key
+        let unit = 'metric'; // Default unit for temperature
+        const searchHistory = [];
+
+        document.getElementById('get-weather').addEventListener('click', function() {
+            const city = document.getElementById('city-input').value;
+            if (city) {
+                getWeather(city);
+            }
+        });
+
+        document.getElementById('get-location').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    getWeather(`lat=${lat}&lon=${lon}`); // Use latitude and longitude
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        });
+
+        document.getElementById('toggle-unit').addEventListener('click', function() {
+            unit = unit === 'metric' ? 'imperial' : 'metric'; // Toggle unit
+            this.textContent = unit === 'metric' ? 'Toggle °C/°F' : 'Toggle °F/°C'; // Update button text
+            const city = document.getElementById('city-input').value;
+            if (city) {
+                getWeather(city); // Fetch weather again with the new unit
+            }
+        });
+
+        function getWeather(location) {
+            const weatherResult = document.getElementById('weather-result');
+            const loading = document.getElementById('loading');
+            weatherResult.innerHTML = '';
+            loading.classList.remove('hidden');
+
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=${unit}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('City not found or invalid coordinates');
+                    return response.json();
+                })
+                .then(data => {
+                    const temp = data.main.temp;
+                    const weatherDescription = data.weather[0].description;
+                    const icon = data.weather[0].icon;
+                    const humidity = data.main.humidity;
+                    const windSpeed = data.wind.speed;
+
+                    weatherResult.innerHTML = `
+                        <img src="https://openweathermap.org/img/wn/${icon}.png" alt="${weatherDescription}">
+                        <p>Temperature: ${temp}°${unit === 'metric' ? 'C' : 'F'}</p>
+                        <p>Weather: ${weatherDescription}</p>
+                        <p>Humidity: ${humidity}%</p>
+                        <p>Wind Speed: ${windSpeed} m/s</p>
+                    `;
+
+                    addToHistory(location);
+                })
+                .catch(error => {
+                    weatherResult.innerHTML = error.message;
+                })
+                .finally(() => {
+                    loading.classList.add('hidden');
+                });
+        }
+
+        function addToHistory(city) {
+            if (!searchHistory.includes(city)) {
+                searchHistory.push(city);
+                const historyContainer = document.getElementById('search-history');
+                const historyItem = document.createElement('div');
+                historyItem.textContent = city;
+                historyItem.classList.add('history-item');
+                historyItem.onclick = () => getWeather(city);
+                historyContainer.appendChild(historyItem);
+            }
+        }
+    </script>
+</body>
+</html>
