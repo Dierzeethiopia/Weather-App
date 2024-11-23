@@ -17,14 +17,6 @@ Real-time Weather Data: Get up-to-date information on temperature, humidity, win
 - Copy right
 - MIT License
 
-# Copyright (c)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 # About
 The Weather App is a dynamic web application that provides users with real-time weather information for any city around the globe. Built using modern web technologies, this application allows users to quickly access current weather conditions, extended forecasts, and additional meteorological data, all in an intuitive and user-friendly interface.
 
@@ -35,7 +27,7 @@ The Weather App is a dynamic web application that provides users with real-time 
 # Motivation
 The motivation behind this project was to create a straightforward and accessible weather application that provides essential weather details with minimal input from the user. By leveraging modern web technologies and a popular weather API, this app offers a seamless experience for users looking to stay informed about the weather.
 
-### How to Use1. 
+### How to Use. 
 1. Enter a city name in the input field and click "Get Weather" to fetch weather data.
 2. Use "Use My Location" to automatically retrieve weather data for your current location.
 3. Click "Toggle °C/°F" to switch between Celsius and Fahrenheit units.
