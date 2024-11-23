@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, hsl(208, 100%, 97%), #e6f7ff); /* Gradient background */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: background 0.5s; /* Smooth transition for background */
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px; /* Responsive max width */
+}
+
+.title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #007BFF; /* Blue title color */
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #007BFF; /* Blue border for the input */
+    border-radius: 4px;
+    flex-grow: 1; /* Allow input to grow */
+    margin-right: 10px; /* Space between input and button */
+}
+
+.button {
+    padding: 10px 15px;
+    font-size: 1em;
+    color: white;
+    background-color: #007BFF; /* Blue button background */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.loading {
+    font-size: 1.2em;
+    color: #007BFF; /* Blue text for loading */
+    margin-top: 15px;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.history {
+    margin-top: 20px;
+    font-size: 1em;
+}
